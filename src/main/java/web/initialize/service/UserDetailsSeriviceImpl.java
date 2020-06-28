@@ -15,10 +15,25 @@ import org.springframework.stereotype.Service;
 
 import web.initialize.entity.UserEntity;
 import web.initialize.repository.UserRepository;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class UserDetailsSeriviceImpl.
+ */
 @Service
 public class UserDetailsSeriviceImpl implements UserDetailsService {
+	
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
+	
+	/**
+	 * Load user by username.
+	 *
+	 * @param username the username
+	 * @return the user details
+	 * @throws UsernameNotFoundException the username not found exception
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<UserEntity> user = userRepository.findByUser(username);

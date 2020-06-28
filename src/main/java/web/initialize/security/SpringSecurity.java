@@ -42,41 +42,38 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.cors().disable();
-		
+		// way 2: using token auth0(jwts)
 		http.authorizeRequests().antMatchers("/").permitAll()
 		.antMatchers("/login").permitAll()
-		.anyRequest().authenticated();
-//		.and()
-//        //
-//        // Add Filter 1 - JWTLoginFilter
-//        //
-//        .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-//                UsernamePasswordAuthenticationFilter.class)
-//        //
-//        // Add Filter 2 - JWTAuthenticationFilter
-//        //
-//        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		.anyRequest().authenticated()
+		.and()
+        //
+        // Add Filter 1 - JWTLoginFilter
+        //
+        .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
+                UsernamePasswordAuthenticationFilter.class)
+        //
+        // Add Filter 2 - JWTAuthenticationFilter
+        //
+        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
-		
+		// way 1: using form login support like web application
 		//http.authorizeRequests().and().formLogin();
-		
-		
-		
-		// Anyone can access
-		// http.httpBasic();
-		//.authenticationEntryPoint(authEntryPoint);
-//		http.authorizeRequests().antMatchers("/login","logout","/").permitAll();
-//		http.authorizeRequests().antMatchers("/admin**","/admin").hasRole("ADMIN");
-//		http.authorizeRequests().antMatchers("/user**","/user").hasAnyRole("ADMIN","USER");
-		
-		//		http.authorizeRequests().and()
-//		.formLogin().loginProcessingUrl("/check").defaultSuccessUrl("/success").failureUrl("/failed").and().
+		//http.authorizeRequests().and()
+		//.formLogin().loginProcessingUrl("/check").defaultSuccessUrl("/success").failureUrl("/failed").and().
 		// http.logout().logoutUrl("/logout").logoutSuccessUrl("/logoutsuccess");
 		//.invalidateHttpSession(true).deleteCookies("JSESSIONID");
 		//.logoutSuccessHandler(logoutSuccessHandler).addLogoutHandler(logoutHandler);
-//		http.exceptionHandling().accessDeniedPage("/errorPage");
+		//http.exceptionHandling().accessDeniedPage("/errorPage");
 		
 		
+		// way 3: using http.httpBasic();
+//		http.httpBasic()
+//		.authenticationEntryPoint(authEntryPoint);
+//		http.authorizeRequests().antMatchers("/login","logout","/").permitAll();
+//		http.authorizeRequests().antMatchers("/admin**","/admin").hasRole("ADMIN");
+//		http.authorizeRequests().antMatchers("/user**","/user").hasAnyRole("ADMIN","USER");
+			
 	}
 
 }
