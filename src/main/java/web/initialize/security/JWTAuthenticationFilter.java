@@ -22,7 +22,7 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
          
         Authentication authentication = TokenAuthenticationService
         		.getAuthentication((HttpServletRequest) servletRequest);
-         //if null -> user is not
+         //if null -> user is not login -> exception
         // if have authenwill be create but 2 case
         // authentication true
         // authenticastion false -> exception -> need catch

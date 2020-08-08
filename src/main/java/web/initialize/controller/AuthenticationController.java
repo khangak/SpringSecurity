@@ -1,5 +1,6 @@
 package web.initialize.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,11 @@ public class AuthenticationController {
 	@RequestMapping("/login")
 	public String login() {
 		return "login";
+	}
+	
+	@RequestMapping("/get-data")
+	public List<UserEntity> getData() {
+		
+		return this.UserRepository.findAllByUserIn(new ArrayList<>());
 	}
 }

@@ -26,10 +26,10 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	@Autowired
-	LogoutHandler logoutHandler;
-	@Autowired
-	LogoutSuccessHandler logoutSuccessHandler;
+//	@Autowired
+//	LogoutHandler logoutHandler;
+//	@Autowired
+//	LogoutSuccessHandler logoutSuccessHandler;
 	//Option
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,17 +45,17 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 		// way 2: using token auth0(jwts)
 		http.authorizeRequests().antMatchers("/").permitAll()
 		.antMatchers("/login").permitAll()
-		.anyRequest().authenticated()
-		.and()
+		.anyRequest().permitAll()
+		.and();
         //
         // Add Filter 1 - JWTLoginFilter
         //
-        .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-                UsernamePasswordAuthenticationFilter.class)
-        //
-        // Add Filter 2 - JWTAuthenticationFilter
-        //
-        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        .addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
+//                UsernamePasswordAuthenticationFilter.class)
+//        //
+//        // Add Filter 2 - JWTAuthenticationFilter
+//        //
+//        .addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 		// way 1: using form login support like web application
 		//http.authorizeRequests().and().formLogin();
